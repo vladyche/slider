@@ -1,4 +1,5 @@
 const slides = document.querySelectorAll('.slides > .slide');
+const miniatures = document.querySelectorAll('.miniatures-list > .item');
 const next = document.querySelector('.navigation-btn > .next');
 const prev = document.querySelector('.navigation-btn > .prev');
 
@@ -11,10 +12,19 @@ let slide = startFromSlide();
 let timeoutId;
 
 start();
+miniaturesInitialize();
+
+function start() {
+    timeoutId = setTimeout(run, timeout);
+}
+
+function stop() {
+    clearTimeout(timeoutId);
+}
 
 function run() {
     slider();
-    setTimeout(run, timeout);
+    timeoutId = setTimeout(run, timeout);
 }
 
 function slider() {
@@ -37,24 +47,6 @@ function prevSlide() {
     decrement();
     changeSlide();
     start();
-}
-
-function changeSlide() {
-    slides[slide].classList.add('show');
-
-    for (let i = 0; i < slides.length; i++) {
-        if (i != slide) {
-            slides[i].classList.remove('show');
-        }
-    }
-}
-
-function start() {
-    timeoutId = setTimeout(run, timeout);
-}
-
-function stop() {
-    clearTimeout(timeoutId);
 }
 
 function animationOff() {
@@ -85,10 +77,36 @@ function decrement() {
     }
 }
 
+function changeSlide() {
+    slides[slide].classList.add('show');
+    miniatures[slide].classList.add('current');
+
+    for (let i = 0; i < slides.length; i++) {
+        if (i != slide) {
+            slides[i].classList.remove('show');
+            miniatures[i].classList.remove('current');
+        }
+    }
+}
+
 function startFromSlide() {
     for (let i = 0; i < slides.length; i++) {
         if (slides[i].classList.contains('show')) {
             return i;
         }
+    }
+}
+
+function miniaturesInitialize() {
+    for (let i = 0; i < miniatures.length; i++) {
+        miniatures[i].addEventListener('click', function () {
+            stop();
+            animationOff();
+
+            slide = i;
+
+            changeSlide();
+            start();
+        });
     }
 }

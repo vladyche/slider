@@ -108,3 +108,45 @@
         cursor: pointer;
     }
 }
+
+.miniatures-container {
+    padding: 2px 0 2px 0;
+}
+
+.miniatures-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .item {
+        margin: 0 2px;
+    }
+}
+
+.miniature {
+    opacity: .5;
+
+    &:hover {
+        opacity: .95;
+        cursor: pointer;
+    }
+
+    .miniature-image {
+        display: block;
+        width: 50px;
+        height: auto;
+    }
+}
+
+.current {
+
+    .miniature {
+        border: 1px solid #cc0000;
+
+        .miniature-image {}
+    }
+}
