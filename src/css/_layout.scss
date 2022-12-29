@@ -11,6 +11,9 @@ body {
 .container {
     margin: 0 auto;
 
+    min-width: 320px;
+    max-width: 1920px;
+
     @include media-breakpoint-only(xxl) {
         max-width: 1320px;
     }
